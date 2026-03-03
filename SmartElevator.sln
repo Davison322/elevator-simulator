@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorApp", "ElevatorApp\ElevatorApp.csproj", "{D304C907-1170-4B73-9A1D-2F21BB559CDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElevatorAppTests", "ElevatorAppTests\ElevatorAppTests.csproj", "{F5CD3892-DEB1-4062-9F53-E5338926E87A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D304C907-1170-4B73-9A1D-2F21BB559CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D304C907-1170-4B73-9A1D-2F21BB559CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D304C907-1170-4B73-9A1D-2F21BB559CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D304C907-1170-4B73-9A1D-2F21BB559CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5CD3892-DEB1-4062-9F53-E5338926E87A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5CD3892-DEB1-4062-9F53-E5338926E87A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5CD3892-DEB1-4062-9F53-E5338926E87A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5CD3892-DEB1-4062-9F53-E5338926E87A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
