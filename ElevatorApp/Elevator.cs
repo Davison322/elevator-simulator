@@ -29,12 +29,19 @@ public class Elevator
     public void AddStop(int floor)
     {
         if (floor < MinFloor || floor > MaxFloor)
-        {
             throw new ArgumentOutOfRangeException(nameof(floor));
-        }
+        
         if (!_stops.Contains(floor) && floor != CurrentFloor)
         {
             _stops.Add(floor);
+        
+            if (State == ElevatorState.Idle)
+                State = floor > CurrentFloor ? ElevatorState.MovingUp : ElevatorState.MovingDown;
+        
+            if (State == ElevatorState.MovingUp)
+                _stops.Sort();
+            else
+                _stops.Sort((a, b) => b.CompareTo(a));
         }
     }
     

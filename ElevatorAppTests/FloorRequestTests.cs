@@ -29,4 +29,17 @@ public class FloorRequestTests
     {
         Assert.That(_request.ToFloor, Is.EqualTo(2));
     }
+    
+    [Test]
+    public void FloorRequest_OnCreation_ShouldHaveRequiresFreightFalse()
+    {
+        Assert.That(_request.RequiresFreight, Is.False);
+    }
+
+    [Test]
+    public void FloorRequest_WithFreight_ShouldHaveRequiresFreightTrue()
+    {
+        _request = new FloorRequest(1, 10, true);
+        Assert.That(_request.RequiresFreight, Is.True);
+    }
 }

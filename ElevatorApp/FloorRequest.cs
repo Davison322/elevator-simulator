@@ -5,7 +5,9 @@ public class FloorRequest
     public int FromFloor { get; }
     public int ToFloor { get; }
     
-    public FloorRequest(int fromFloor, int toFloor)
+    public bool RequiresFreight { get; }
+    
+    public FloorRequest(int fromFloor, int toFloor, bool requiresFreight = false)
     {
         if (fromFloor == toFloor)
         {
@@ -13,5 +15,6 @@ public class FloorRequest
         }
         FromFloor = fromFloor;
         ToFloor = toFloor;
+        RequiresFreight = requiresFreight;
     }
 }

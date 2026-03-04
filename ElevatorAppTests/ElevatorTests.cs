@@ -57,6 +57,21 @@ public class Tests
         _elevator.AddStop(3);
         Assert.That(_elevator.Stops, Is.EquivalentTo(new []{2,3}));
     }
+    
+    [Test]
+    public void AddStop_WhenIdle_ShouldSetStateToMovingUp()
+    {
+        _elevator.AddStop(5);
+        Assert.That(_elevator.State, Is.EqualTo(ElevatorState.MovingUp));
+    }
+
+    [Test]
+    public void AddStop_WhenIdle_ShouldSetStateToMovingDown()
+    {
+        Elevator elevator = new Elevator(5, 1, 10);
+        elevator.AddStop(2);
+        Assert.That(elevator.State, Is.EqualTo(ElevatorState.MovingDown));
+    }
 
     [Test]
     public void SetOutOfService_ShouldSetStateToOutOfService()

@@ -19,9 +19,58 @@ public class ElevatorManager
         _elevators = elevators;
     }
 
-    public void RequestElevator()
+    public void RequestElevator(FloorRequest request)
     {
-        throw new NotImplementedException();
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+        
+        bool IsCompatible(Elevator elevator)
+        {
+            if (elevator.State == ElevatorState.OutOfService) return false;
+            if (request.RequiresFreight && !(elevator is FreightElevator)) return false;
+            if (request.FromFloor < elevator.MinFloor || request.FromFloor > elevator.MaxFloor) return false;
+            if (request.ToFloor < elevator.MinFloor || request.ToFloor > elevator.MaxFloor) return false;
+            return true;
+        }
+
+        Elevator bestElevator = null;
+        int bestDistance = int.MaxValue;
+
+        // Part 1: find closest idle elevator
+        foreach (var elevator in _elevators)
+        {
+            if (!IsCompatible(elevator)) continue;
+            if (elevator.State == ElevatorState.Idle)
+            {
+                int distance = Math.Abs(elevator.CurrentFloor - request.FromFloor);
+                if (distance < bestDistance)
+                {
+                    bestDistance = distance;
+                    bestElevator = elevator;
+                }
+            }
+        }
+        
+        // Part 2: no idle found, find elevator moving in the right direction
+        if (bestElevator == null)
+        {
+            foreach (var elevator in _elevators)
+            {
+                if (!IsCompatible(elevator)) continue;
+            }
+
+        }
+        
+        // Part 3: no compatible moving elevator, pick least busy one
+        if (bestElevator == null)
+        {
+            foreach (var elevator in _elevators)
+            {
+                if (!IsCompatible(elevator)) continue;
+            }
+        }
     }
 
     public void SetOutOfService(int index)
