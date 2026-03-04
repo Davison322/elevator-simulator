@@ -24,14 +24,22 @@ public class ElevatorManager
         throw new NotImplementedException();
     }
 
-    public void SetOutOfService()
+    public void SetOutOfService(int index)
     {
-        throw new NotImplementedException();   
+        if (index < 0 || index >= Elevators.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(index));
+        }
+        _elevators[index].SetOutOfService();
     }
 
-    public void SetInService()
+    public void SetInService(int index)
     {
-        throw new NotImplementedException();
+        if (index < 0 || index >= Elevators.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(index));
+        }
+        _elevators[index].SetInService();
     }
 
     public void MoveElevatorTo()

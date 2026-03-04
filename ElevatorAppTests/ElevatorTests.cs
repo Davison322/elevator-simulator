@@ -13,14 +13,6 @@ public class Tests
     }
 
     [Test]
-    public void AddStop_WithValidFloor_ShouldAppearInStops()
-    {
-        _elevator.AddStop(2);
-        _elevator.AddStop(3);
-        Assert.That(_elevator.Stops, Is.EquivalentTo(new []{2,3}));
-    }
-
-    [Test]
     public void Elevator_OnCreation_ShouldHaveEmptyStops()
     {
         Assert.That(_elevator.Stops, Is.Empty);
@@ -56,5 +48,36 @@ public class Tests
     public void AddStop_WithInvalidFloor_ShouldThrow()
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => _elevator.AddStop(11));
+    }
+    
+    [Test]
+    public void AddStop_WithValidFloor_ShouldAppearInStops()
+    {
+        _elevator.AddStop(2);
+        _elevator.AddStop(3);
+        Assert.That(_elevator.Stops, Is.EquivalentTo(new []{2,3}));
+    }
+
+    [Test]
+    public void SetOutOfService_ShouldSetStateToOutOfService()
+    {
+        _elevator.SetOutOfService();
+        Assert.That(_elevator.State, Is.EqualTo(ElevatorState.OutOfService));
+    }
+    
+    [Test]
+    public void SetOutOfService_ShouldClearStops()
+    {
+        _elevator.AddStop(2);
+        _elevator.AddStop(3);
+        _elevator.SetOutOfService();
+        Assert.That(_elevator.Stops, Is.Empty);
+    }
+    
+    [Test]
+    public void SetInService_ShouldSetStateToIdle()
+    {
+        _elevator.SetInService();
+        Assert.That(_elevator.State, Is.EqualTo(ElevatorState.Idle));
     }
 }

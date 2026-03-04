@@ -37,6 +37,18 @@ public class Elevator
             _stops.Add(floor);
         }
     }
+    
+    public void SetOutOfService()
+    {
+        State = ElevatorState.OutOfService;
+        _stops.Clear();
+    }
+
+    public void SetInService()
+    {
+        State = ElevatorState.Idle;
+    }
+
 
     public override string ToString()
     {

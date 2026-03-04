@@ -41,4 +41,30 @@ public class ElevatorManagerTests
    {
       Assert.That(_manager.Elevators, Is.EquivalentTo(new []{_elevator1, _elevator2, _freightElevator}));
    }
+   
+   [Test]
+   public void SetOutOfService_WithInvalidIndex_ShouldThrow()
+   {
+      Assert.Throws<ArgumentOutOfRangeException>(() => _manager.SetOutOfService(10));
+   }
+
+   [Test]
+   public void SetOutOfService_WithValidIndex_ShouldSetStateToOutOfService()
+   {
+      _manager.SetOutOfService(0);
+      Assert.That(_manager.Elevators[0].State, Is.EqualTo(ElevatorState.OutOfService));
+   }
+   
+   [Test]
+   public void SetInService_WithInvalidIndex_ShouldThrow()
+   {
+      Assert.Throws<ArgumentOutOfRangeException>(() => _manager.SetInService(10));
+   }
+
+   [Test]
+   public void SetInService_WithValidIndex_ShouldSetStateToIdle()
+   {
+      _manager.SetInService(0);
+      Assert.That(_manager.Elevators[0].State, Is.EqualTo(ElevatorState.Idle));
+   }
 }
