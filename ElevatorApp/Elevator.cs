@@ -37,4 +37,9 @@ public class Elevator
             _stops.Add(floor);
         }
     }
+
+    public override string ToString()
+    {
+        return $"Floor: {CurrentFloor} | State: {State} | Stops: [{string.Join(", ", Stops)}]";
+    }
 }

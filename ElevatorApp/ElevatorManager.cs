@@ -3,6 +3,8 @@ namespace ElevatorApp;
 public class ElevatorManager
 {
     private readonly List<Elevator> _elevators;
+    
+    public IReadOnlyList<Elevator> Elevators => _elevators; 
 
     public ElevatorManager(List<Elevator> elevators)
     {
@@ -39,7 +41,10 @@ public class ElevatorManager
 
     public void GetStatus()
     {
-        throw new NotImplementedException();
+        for (int i = 0; i < _elevators.Count; i++)
+        {
+            Console.WriteLine($"Elevator {i + 1}: {_elevators[i]}");
+        }
     }
 
 }
