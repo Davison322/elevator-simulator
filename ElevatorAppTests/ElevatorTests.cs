@@ -2,7 +2,7 @@
 
 namespace ElevatorTests;
 
-public class Tests
+public class ElevatorTests
 {
     private Elevator _elevator;
     
@@ -95,4 +95,54 @@ public class Tests
         _elevator.SetInService();
         Assert.That(_elevator.State, Is.EqualTo(ElevatorState.Idle));
     }
+    
+    [Test]
+    public void Move_CurrentFloorShouldMoveUp()
+    {
+        _elevator.AddStop(5);
+        _elevator.Move();
+        Assert.That(_elevator.CurrentFloor, Is.EqualTo(2));    }
+    
+    [Test]
+    public void Move_CurrentFloorShouldStay()
+    {
+        _elevator.Move();
+        Assert.That(_elevator.CurrentFloor, Is.EqualTo(1));
+    }
+
+    [Test]
+    public void Move_ShouldSetStateToMovingDown()
+    {
+        _elevator = new Elevator(10);
+        _elevator.AddStop(5);
+        _elevator.Move();
+        Assert.That(_elevator.State, Is.EqualTo(ElevatorState.MovingDown));
+    }
+    
+    [Test]
+    public void Move_ShouldClearStops()
+    {
+        _elevator.AddStop(2);
+        _elevator.Move();
+        Assert.That(_elevator.Stops, Is.Empty);
+    }
+    
+    [Test]
+    public void Move_ShouldSetStateToIdle()
+    {
+        _elevator.AddStop(2);
+        _elevator.Move();
+        Assert.That(_elevator.State, Is.EqualTo(ElevatorState.Idle));
+    }
+    
+    [Test]
+    public void Move_WithMultipleStops_ShouldNotBeIdle()
+    {
+        _elevator.AddStop(3);
+        _elevator.AddStop(5);
+        _elevator.Move();
+        Assert.That(_elevator.State, Is.Not.EqualTo(ElevatorState.Idle));
+    }
+
+    
 }

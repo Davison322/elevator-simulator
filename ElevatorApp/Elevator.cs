@@ -2,13 +2,13 @@ namespace ElevatorApp;
 
 public class Elevator
 {
-    private List<int> _stops;
+    private HashSet<int> _stops;
     
     public int CurrentFloor { get; private set; }
     public ElevatorState State { get; private set; }
     public int MaxFloor { get; private set; }
     public int MinFloor { get; private set; }
-    public IReadOnlyList<int> Stops => _stops;
+    public IReadOnlySet<int> Stops => _stops;
 
     public Elevator(int startFloor = 1, int minFloor = 1, int maxFloor = 10)
     {
@@ -23,12 +23,26 @@ public class Elevator
         State = ElevatorState.Idle;
         MaxFloor = maxFloor;
         MinFloor = minFloor;
-        _stops = new List<int>();
+        _stops = new HashSet<int>();
     }
 
     public void AddStop(int floor) 
     {
-        throw new NotImplementedException(); //under construction
+        if (State == ElevatorState.OutOfService)
+            throw new InvalidOperationException("Elevator is out of service.");
+
+        if (floor < MinFloor || floor > MaxFloor)
+            throw new ArgumentOutOfRangeException(nameof(floor));
+
+        if (floor == CurrentFloor && State == ElevatorState.Idle)
+            return;
+        
+        _stops.Add(floor);
+        
+        if (State == ElevatorState.Idle)
+        {
+            State = floor > CurrentFloor ? ElevatorState.MovingUp : ElevatorState.MovingDown;
+        }
     }
     
     public void SetOutOfService()
@@ -42,6 +56,32 @@ public class Elevator
         State = ElevatorState.Idle;
     }
 
+    public void Move()
+    {
+        if (State == ElevatorState.OutOfService)
+        {
+            return;
+        }
+
+        if (State == ElevatorState.MovingUp)
+        {
+            CurrentFloor++;
+        }
+        else if (State == ElevatorState.MovingDown)
+        {
+            CurrentFloor--;
+        }
+
+        if (_stops.Contains(CurrentFloor))
+        {
+            _stops.Remove(CurrentFloor);
+        }
+
+        if (_stops.Count == 0)
+        {
+            State = ElevatorState.Idle;
+        }
+    }
 
     public override string ToString()
     {

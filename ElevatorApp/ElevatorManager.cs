@@ -25,16 +25,7 @@ public class ElevatorManager
         {
             throw new ArgumentNullException(nameof(request));
         }
-        //maybe should be separate validation helper class
-        bool IsCompatible(Elevator elevator)
-        {
-            if (elevator.State == ElevatorState.OutOfService) return false;
-            if (request.RequiresFreight && !(elevator is FreightElevator)) return false;
-            if (request.FromFloor < elevator.MinFloor || request.FromFloor > elevator.MaxFloor) return false;
-            if (request.ToFloor < elevator.MinFloor || request.ToFloor > elevator.MaxFloor) return false;
-            return true;
-        }
-    
+        
         throw new NotImplementedException();
     }
 
@@ -55,12 +46,7 @@ public class ElevatorManager
         }
         _elevators[index].SetInService();
     }
-
-    public void MoveElevatorTo()
-    {
-        throw new NotImplementedException();
-    }
-
+    
     public void GetStatus() //maybe should be return(debatable)
     {
         for (int i = 0; i < _elevators.Count; i++)
