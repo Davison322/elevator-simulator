@@ -143,6 +143,33 @@ public class ElevatorTests
         _elevator.Move();
         Assert.That(_elevator.State, Is.Not.EqualTo(ElevatorState.Idle));
     }
-
     
+    [Test]
+    public void Move_WhenNoStopsAbove_ShouldSwitchToMovingDown()
+    {
+        _elevator = new Elevator(2, 1, 10);
+    
+        _elevator.AddStop(5);
+        _elevator.AddStop(1);
+
+        _elevator.Move();
+        _elevator.Move();
+        _elevator.Move();
+
+        Assert.That(_elevator.State, Is.EqualTo(ElevatorState.MovingDown));
+    }
+
+    [Test]
+    public void Move_WhenNoStopsBelow_ShouldSwitchToMovingUp()
+    {
+        _elevator = new Elevator(3, 1, 10);
+    
+        _elevator.AddStop(1);
+        _elevator.AddStop(5);
+
+        _elevator.Move();
+        _elevator.Move();
+
+        Assert.That(_elevator.State, Is.EqualTo(ElevatorState.MovingUp));
+    }
 }

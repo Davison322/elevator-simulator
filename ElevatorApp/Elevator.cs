@@ -65,10 +65,14 @@ public class Elevator
 
         if (State == ElevatorState.MovingUp)
         {
+            if (CurrentFloor >= MaxFloor)
+                throw new InvalidOperationException("Elevator exceeded max floor");
             CurrentFloor++;
         }
         else if (State == ElevatorState.MovingDown)
         {
+            if (CurrentFloor <= MinFloor)
+                throw new InvalidOperationException("Elevator surpass min floor");
             CurrentFloor--;
         }
 
@@ -81,8 +85,15 @@ public class Elevator
         {
             State = ElevatorState.Idle;
         }
+        else if (State == ElevatorState.MovingUp && !_stops.Any(f => f > CurrentFloor))
+        {
+            State = ElevatorState.MovingDown;
+        }
+        else if (State == ElevatorState.MovingDown && !_stops.Any(f => f < CurrentFloor))
+        {
+            State = ElevatorState.MovingUp;
+        }
     }
-
     public override string ToString()
     {
         return $"Floor: {CurrentFloor} | State: {State} | Stops: [{string.Join(", ", Stops)}]";
