@@ -19,13 +19,13 @@ public class ElevatorManager
         _elevators = elevators;
     }
 
-    public void RequestElevator(FloorRequest request)
+    public void RequestElevator(FloorRequest request) //under construction
     {
         if (request == null)
         {
             throw new ArgumentNullException(nameof(request));
         }
-        
+        //maybe should be separate validation helper class
         bool IsCompatible(Elevator elevator)
         {
             if (elevator.State == ElevatorState.OutOfService) return false;
@@ -34,43 +34,8 @@ public class ElevatorManager
             if (request.ToFloor < elevator.MinFloor || request.ToFloor > elevator.MaxFloor) return false;
             return true;
         }
-
-        Elevator bestElevator = null;
-        int bestDistance = int.MaxValue;
-
-        // Part 1: find closest idle elevator
-        foreach (var elevator in _elevators)
-        {
-            if (!IsCompatible(elevator)) continue;
-            if (elevator.State == ElevatorState.Idle)
-            {
-                int distance = Math.Abs(elevator.CurrentFloor - request.FromFloor);
-                if (distance < bestDistance)
-                {
-                    bestDistance = distance;
-                    bestElevator = elevator;
-                }
-            }
-        }
-        
-        // Part 2: no idle found, find elevator moving in the right direction
-        if (bestElevator == null)
-        {
-            foreach (var elevator in _elevators)
-            {
-                if (!IsCompatible(elevator)) continue;
-            }
-
-        }
-        
-        // Part 3: no compatible moving elevator, pick least busy one
-        if (bestElevator == null)
-        {
-            foreach (var elevator in _elevators)
-            {
-                if (!IsCompatible(elevator)) continue;
-            }
-        }
+    
+        throw new NotImplementedException();
     }
 
     public void SetOutOfService(int index)
@@ -96,7 +61,7 @@ public class ElevatorManager
         throw new NotImplementedException();
     }
 
-    public void GetStatus()
+    public void GetStatus() //maybe should be return(debatable)
     {
         for (int i = 0; i < _elevators.Count; i++)
         {

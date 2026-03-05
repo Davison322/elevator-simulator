@@ -39,7 +39,7 @@ public class Tests
     }
 
     [Test]
-    public void Elevator_WithMinSmallerMax_ShouldThrow()
+    public void Elevator_WithMinGreaterThanMax_ShouldThrow()
     {
         Assert.Throws<ArgumentException>((() => new Elevator(1, 3, 2)));
     }

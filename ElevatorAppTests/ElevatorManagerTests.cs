@@ -67,4 +67,6 @@ public class ElevatorManagerTests
       _manager.SetInService(0);
       Assert.That(_manager.Elevators[0].State, Is.EqualTo(ElevatorState.Idle));
    }
+   
+
 }

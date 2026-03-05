@@ -2,7 +2,7 @@
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main()
     {
         Elevator elevator1 = new Elevator();
         Elevator elevator2 = new Elevator();
