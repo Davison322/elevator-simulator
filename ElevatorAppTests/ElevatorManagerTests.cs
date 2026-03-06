@@ -68,5 +68,49 @@ public class ElevatorManagerTests
       Assert.That(_manager.Elevators[0].State, Is.EqualTo(ElevatorState.Idle));
    }
    
+   [Test]
+   public void RequestElevator_WithIdleElevator_ShouldAssignStops()
+   {
+      _manager.RequestElevator(new FloorRequest(1, 5));
+      Assert.That(_elevator1.Stops.Contains(5), Is.True);
+   }
 
+   [Test]
+   public void RequestElevator_WithNoIdleElevator_ShouldAddToPending()
+   {
+      _manager.RequestElevator(new FloorRequest(1, 10));
+      _manager.RequestElevator(new FloorRequest(1, 10));
+      _manager.RequestElevator(new FloorRequest(1, 10));
+      _manager.RequestElevator(new FloorRequest(2, 8));
+      Assert.That(_manager.PendingRequests.Count, Is.EqualTo(1));
+   }
+
+   [Test]
+   public void RequestElevator_RequiresFreight_ShouldAssignToFreightElevator()
+   {
+      _manager.RequestElevator(new FloorRequest(1, 5, true));
+      Assert.That(_freightElevator.Stops.Contains(5), Is.True);
+   }
+
+   [Test]
+   public void Tick_ShouldMoveElevators()
+   {
+      _manager.RequestElevator(new FloorRequest(1, 5));
+      _manager.Tick();
+      Assert.That(_elevator1.CurrentFloor, Is.EqualTo(2));
+   }
+
+   [Test]
+   public void Tick_ShouldProcessPendingRequests()
+   {
+      _manager.RequestElevator(new FloorRequest(1, 10));
+      _manager.RequestElevator(new FloorRequest(1, 10));
+      _manager.RequestElevator(new FloorRequest(1, 10));
+      _manager.RequestElevator(new FloorRequest(2, 8));
+
+      for (int i = 0; i < 20; i++)
+         _manager.Tick();
+
+      Assert.That(_manager.PendingRequests.Count, Is.EqualTo(0));
+   }
 }

@@ -58,7 +58,7 @@ public class Elevator
 
     public void Move()
     {
-        if (State == ElevatorState.OutOfService)
+        if (State == ElevatorState.OutOfService || State == ElevatorState.Idle)
         {
             return;
         }
