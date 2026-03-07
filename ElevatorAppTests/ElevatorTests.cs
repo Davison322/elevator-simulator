@@ -101,7 +101,8 @@ public class ElevatorTests
     {
         _elevator.AddStop(5);
         _elevator.Move();
-        Assert.That(_elevator.CurrentFloor, Is.EqualTo(2));    }
+        Assert.That(_elevator.CurrentFloor, Is.EqualTo(2));    
+    }
     
     [Test]
     public void Move_CurrentFloorShouldStay()

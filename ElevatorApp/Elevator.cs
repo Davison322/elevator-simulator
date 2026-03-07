@@ -1,6 +1,6 @@
 namespace ElevatorApp;
 
-public class Elevator
+public class Elevator : IElevator
 {
     private HashSet<int> _stops;
     
